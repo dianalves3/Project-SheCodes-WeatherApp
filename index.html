@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link href="src/styles.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Weather app</title>
+</head>
+
+<body>
+    <div class="weather-app">
+        <form id="search-form">
+            <div class="row">
+                <div class="col">
+                    <input type="search" placeholder="Type a city..." class="form-control" id="search-city" />
+                </div>
+                <div class="col">
+                    <input type="submit" value="Search" class="btn-primary" id="btn-search" />
+                </div>
+            </div>
+        </form>
+        <br />
+        <div>
+            <h1 id="city">
+                Guimarães
+            </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4" style="text-align: center;">
+                    <ul>
+                        <br />
+                        <li>
+                            Min
+                        </li>
+                        <li>
+                            <span id="min-temperature"> 15 </span>
+                            <a href="#" id="celsius"> °C </a>
+                            |
+                            <a href="#" id="fahrenheit"> °F </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-4" style="text-align: center;">
+                    <ul>
+                        <li>
+                            <img src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png" alt="partly_cloudy"
+                                height="60" />
+                        </li>
+                        <li>
+                            <span id="curr-temperature"> 19 </span>
+                            <a href="#1" id="celsius"> °C </a>
+                            |
+                            <a href="#1" id="fahrenheit"> °F </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-4" style="text-align: center;">
+                    <ul>
+                        <br />
+                        <li>
+                            Max
+                        </li>
+                        <li>
+                            <span id="max-temperature"> 25 </span>
+                            <a href="#" id="celsius">
+                                °C
+                            </a>
+                            |
+                            <a href="#" id="fahrenheit">
+                                °F
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <ul>
+                        <li class="days">
+                            Mon
+                        </li>
+                        <li class="temp-pictures">
+                            <img src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png" alt="partly_cloudy"
+                                height="40" />
+                        </li>
+                        <li class="weather-forecast">
+                            16<small>º</small> | 20<small>º</small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <ul>
+                        <li class="days">
+                            Tue
+                        </li>
+
+                        <li class="temp-pictures">
+                            <img src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png" alt="partly_cloudy"
+                                height="40" />
+                        </li>
+                        <li class="weather-forecast">
+                            17<small>º</small> | 22<small>º</small>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <ul>
+                        <li class="days">
+                            Wed
+                        </li>
+
+                        <li class="temp-pictures">
+                            <img src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png" alt="partly_cloudy"
+                                height="40" />
+                        </li>
+                        <li class="weather-forecast">
+                            20<small>º</small> | 25<small>º</small>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-2">
+                    <ul>
+                        <li class="days">
+                            Thu
+                        </li>
+
+                        <li class="temp-pictures">
+                            <img src="https://ssl.gstatic.com/onebox/weather/48/sunny.png" alt="partly_cloudy"
+                                height="40" />
+                        </li>
+
+                        <li class="weather-forecast">
+                            20<small>º</small> | 25<small>º</small>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-2">
+                    <ul>
+                        <li class="days">
+                            Fri
+                        </li>
+
+                        <li class="temp-pictures">
+                            <img src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png" alt="partly_cloudy"
+                                height="40" />
+                        </li>
+                        <li class="weather-forecast">
+                            19<small>º</small> | 23<small>º</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6" style="text-align: center;">
+                    <ul>
+                        <li>
+                            <p id="clouds">Cloudiness: 0%</p>
+                        </li>
+                        <li>
+                            <p id="humidity">Humidity: 60%</p>
+                        </li>
+                        <li>
+                            <p id="wind">Wind: 60%</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6" style="text-align: center;">
+                    <ul>
+                        <li>
+                            Current Time
+                        </li>
+                        <li>
+                            <p id="time"></p>
+                        </li>
+                        <li>
+                            <p id="date"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6" style="text-align: center;">
+                    <button type="button" class="btn btn-outline-dark">GPS</button>
+                </div>
+                <div class="col-6" style="text-align: center;">
+                    <p id="gps"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="src/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+let now = new Date();
+let dayNToday = now.getDate();
+let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+let dayToday = days[now.getDay()];
+let year = now.getFullYear();
+
+let months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+let monthToday = months[now.getMonth()];
+
+let h2 = document.querySelector("#date");
+h2.innerHTML = `${dayToday}, ${monthToday} ${dayNToday}, ${year}`;
+
+let hours = now.getHours();
+
+function Fullminutes() {
+  if (now.getMinutes() < 10) {
+    return "0" + now.getMinutes();
+  } else {
+    return now.getMinutes();
+  }
+}
+
+let h3 = document.querySelector("#time");
+h3.innerHTML = ` ${hours}:${Fullminutes()}`;
+
+function searchLocal(event) {
+  event.preventDefault();
+  let searchCity = document.querySelector("#search-city");
+  if (searchCity.value.length) {
+    let city = document.querySelector("#city");
+    city.innerHTML = searchCity.value;
+
+    console.log(searchCity.value);
+
+    //acrescentado
+    let apiKey = "f50b4a4ce3859818084fedaf5e77af8a";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity.value}&units=metric`;
+
+    axios.get(`${apiUrl}&appid=${apiKey}`).then(temperature);
+  }
+}
+
+let searchCity = document.querySelector("#search-form");
+searchCity.addEventListener("submit", searchLocal);
+
+// acrescentado
+function temperature(response) {
+  console.log(response.data.main.temp);
+  //let tempNow = document.querySelector("h1");
+  let temperatureDay = document.querySelector("#curr-temperature");
+  let temperatureMin = document.querySelector("#min-temperature");
+  let temperatureMax = document.querySelector("#max-temperature");
+  let clouds = document.querySelector("#clouds");
+  let humidity = document.querySelector("#humidity");
+  let wind = document.querySelector("#wind");
+  temperatureDay.innerHTML = Math.round(response.data.main.temp);
+  temperatureMin.innerHTML = Math.round(response.data.main.temp_min);
+  temperatureMax.innerHTML = Math.round(response.data.main.temp_max);
+  clouds.innerHTML = `Cloudiness: ${response.data.clouds.all} %`;
+  humidity.innerHTML = `Humidity: ${Math.round(response.data.main.humidity)} %`;
+  wind.innerHTML = `Wind: ${Math.round(response.data.wind.speed)} m/s`;
+}
+
+function convertToFahrenheit() {
+  let temperatureDay = document.querySelector("#curr-temperature");
+  let temperatureMin = document.querySelector("#min-temperature");
+  let temperatureMax = document.querySelector("#max-temperature");
+
+  let link = document.querySelector("#fahrenheit");
+  link.classList.add("active");
+  let celsiusLink = document.querySelector("#celsius");
+  celsiusLink.classList.remove("active");
+  temperatureMin.innerHTML = Math.round((15 * 9) / 5 + 32);
+  temperatureMax.innerHTML = Math.round((25 * 9) / 5 + 32);
+  temperatureDay.innerHTML = Math.round((19 * 9) / 5 + 32);
+}
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+function convertToCelsius() {
+  let temperatureMin = document.querySelector("#min-temperature");
+  let temperatureMax = document.querySelector("#max-temperature");
+  let temperatureDay = document.querySelector("#curr-temperature");
+  let link = document.querySelector("#celsius");
+  link.classList.add("active");
+  let fahrenheitLink = document.querySelector("#fahrenheit");
+  fahrenheitLink.classList.remove("active");
+  temperatureMin.innerHTML = 15;
+  temperatureMax.innerHTML = 25;
+  temperatureDay.innerHTML = 19;
+}
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", convertToCelsius);
+
+function showPosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  console.log(lat);
+  console.log(lon);
+  let gps = document.querySelector("#gps");
+  gps.innerHTML = `Latitude: ${Math.floor(lat * 1000 + 0.5) /
+    1000} Longitude:${Math.floor(lon * 1000 + 0.5) / 1000} `;
+}
+
+function getCurrentPosition() {
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+let button = document.querySelector("button");
+button.addEventListener("click", getCurrentPosition);
