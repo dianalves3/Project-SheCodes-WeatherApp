@@ -78,26 +78,28 @@ search("Guimarães,pt");
 function temperature(response) {
   //let tempNow = document.querySelector("h1");
   let cityElement = document.querySelector("#city");
+  let descriptionElement = document.querySelector("#description");
   let temperatureDay = document.querySelector("#curr-temperature");
   let temperatureMin = document.querySelector("#min-temperature");
   let temperatureMax = document.querySelector("#max-temperature");
   let clouds = document.querySelector("#clouds");
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
-  // let iconDayElement = document.querySelector("#icon");
+  let iconDayElement = document.querySelector("#iconDay");
 
   cityElement.innerHTML = response.data.name;
+  descriptionElement.innerHTML = response.data.weather[0].description;
   temperatureDay.innerHTML = Math.round(response.data.main.temp);
   temperatureMin.innerHTML = Math.round(response.data.main.temp_min);
   temperatureMax.innerHTML = Math.round(response.data.main.temp_max);
   clouds.innerHTML = `Cloudiness: ${response.data.clouds.all} %`;
   humidity.innerHTML = `Humidity: ${Math.round(response.data.main.humidity)} %`;
   wind.innerHTML = `Wind: ${Math.round(response.data.wind.speed)} m/s`;
-  //iconDayElement.setAttribute(
-  //"src",
-  //`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  //);
-  //iconDayElement.setAttribute("alt", response.data.weather[0].description);
+  iconDayElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconDayElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 let searchCity = document.querySelector("#search-form");
