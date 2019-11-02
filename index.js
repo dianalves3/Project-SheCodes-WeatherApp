@@ -44,43 +44,64 @@ function Fullminutes() {
 let h3 = document.querySelector("#time");
 h3.innerHTML = ` ${hours}:${Fullminutes()}`;
 
-function searchLocal(event) {
-  event.preventDefault();
-  let searchCity = document.querySelector("#search-city");
-  if (searchCity.value.length) {
-    let city = document.querySelector("#city");
-    city.innerHTML = searchCity.value;
-
-    console.log(searchCity.value);
-
-    //acrescentado
-    let apiKey = "f50b4a4ce3859818084fedaf5e77af8a";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity.value}&units=metric`;
-
-    axios.get(`${apiUrl}&appid=${apiKey}`).then(temperature);
-  }
+function search(city) {
+  let apiKey = "8e7395d4f989412fff4eb060663c2eeb";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(temperature);
 }
 
-let searchCity = document.querySelector("#search-form");
-searchCity.addEventListener("submit", searchLocal);
+function handleSubmit(event) {
+  event.preventDefault();
+
+  let searchCity = document.querySelector("#search-city");
+  console.log(searchCity.value);
+  search(searchCity.value);
+}
+
+search("Guimarães,pt");
+
+//function searchLocal(event) {
+//event.preventDefault();
+//let searchCity = document.querySelector("#search-city");
+//if (searchCity.value.length) {
+// let city = document.querySelector("#city");
+// city.innerHTML = searchCity.value;
+//acrescentado
+// let apiKey = "f50b4a4ce3859818084fedaf5e77af8a";
+// let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity.value}&units=metric`;
+//
+// axios.get(`${apiUrl}&appid=${apiKey}`).then(temperature);
+//}
+//}
 
 // acrescentado
 function temperature(response) {
-  console.log(response.data.main.temp);
   //let tempNow = document.querySelector("h1");
+  let cityElement = document.querySelector("#city");
   let temperatureDay = document.querySelector("#curr-temperature");
   let temperatureMin = document.querySelector("#min-temperature");
   let temperatureMax = document.querySelector("#max-temperature");
   let clouds = document.querySelector("#clouds");
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
+  // let iconDayElement = document.querySelector("#icon");
+
+  cityElement.innerHTML = response.data.name;
   temperatureDay.innerHTML = Math.round(response.data.main.temp);
   temperatureMin.innerHTML = Math.round(response.data.main.temp_min);
   temperatureMax.innerHTML = Math.round(response.data.main.temp_max);
   clouds.innerHTML = `Cloudiness: ${response.data.clouds.all} %`;
   humidity.innerHTML = `Humidity: ${Math.round(response.data.main.humidity)} %`;
   wind.innerHTML = `Wind: ${Math.round(response.data.wind.speed)} m/s`;
+  //iconDayElement.setAttribute(
+  //"src",
+  //`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  //);
+  //iconDayElement.setAttribute("alt", response.data.weather[0].description);
 }
+
+let searchCity = document.querySelector("#search-form");
+searchCity.addEventListener("submit", handleSubmit);
 
 function convertToFahrenheit() {
   let temperatureDay = document.querySelector("#curr-temperature");
