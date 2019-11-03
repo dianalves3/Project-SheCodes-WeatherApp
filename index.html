@@ -44,49 +44,41 @@
         <h2 id="description"></h2>
       </div>
       <div class="container">
-        <div class="row">
+        <div class="row" id="temps">
           <div class="col-4" style="text-align: center;">
             <ul>
               <br />
-              <li>
+              <li id="temps">
                 Min
               </li>
               <li>
-                <span id="min-temperature"> 15 </span>
-                <a href="#" id="celsius"> °C </a>
-                |
-                <a href="#" id="fahrenheit"> °F </a>
+                <span id="min-temperature"> </span>
               </li>
             </ul>
           </div>
           <div class="col-4" style="text-align: center;">
             <ul>
               <li>
-                <img src="" alt="" height="100" id="iconDay" />
+                <img src="" alt="" height="110" id="iconDay" />
               </li>
               <li>
-                <span id="curr-temperature"> 19 </span>
-                <a href="#1" id="celsius"> °C </a>
-                |
-                <a href="#1" id="fahrenheit"> °F </a>
+                <strong id="curr-temperature"></strong>
+                <span class="units">
+                  <a href="#1" id="celsius" class="active"> °C </a>
+                  |
+                  <a href="#1" id="fahrenheit"> °F </a></span
+                >
               </li>
             </ul>
           </div>
           <div class="col-4" style="text-align: center;">
             <ul>
               <br />
-              <li>
+              <li id="temps">
                 Max
               </li>
               <li>
-                <span id="max-temperature"> 25 </span>
-                <a href="#" id="celsius">
-                  °C
-                </a>
-                |
-                <a href="#" id="fahrenheit">
-                  °F
-                </a>
+                <span id="max-temperature"> </span>
               </li>
             </ul>
           </div>
