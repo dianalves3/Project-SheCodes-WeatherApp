@@ -57,29 +57,12 @@ function handleSubmit(event) {
   event.preventDefault();
 
   let searchCity = document.querySelector("#search-city");
-  console.log(searchCity.value);
   search(searchCity.value);
 }
 
 search("Guimarães,pt");
 
-//function searchLocal(event) {
-//event.preventDefault();
-//let searchCity = document.querySelector("#search-city");
-//if (searchCity.value.length) {
-// let city = document.querySelector("#city");
-// city.innerHTML = searchCity.value;
-//acrescentado
-// let apiKey = "f50b4a4ce3859818084fedaf5e77af8a";
-// let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity.value}&units=metric`;
-//
-// axios.get(`${apiUrl}&appid=${apiKey}`).then(temperature);
-//}
-//}
-
-// acrescentado
 function temperature(response) {
-  //let tempNow = document.querySelector("h1");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
   let temperatureDay = document.querySelector("#curr-temperature");
@@ -89,7 +72,6 @@ function temperature(response) {
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
   let iconDayElement = document.querySelector("#iconDay");
-
   celsiusTemperature = response.data.main.temp;
   celsiusTemperatureMin = response.data.main.temp_min;
   celsiusTemperatureMax = response.data.main.temp_max;
@@ -99,6 +81,7 @@ function temperature(response) {
   temperatureDay.innerHTML = Math.round(celsiusTemperature);
   temperatureMin.innerHTML = Math.round(celsiusTemperatureMin);
   temperatureMax.innerHTML = Math.round(celsiusTemperatureMax);
+
   clouds.innerHTML = `Cloudiness: ${response.data.clouds.all} %`;
   humidity.innerHTML = `Humidity: ${Math.round(response.data.main.humidity)} %`;
   wind.innerHTML = `Wind: ${Math.round(response.data.wind.speed)} m/s`;
@@ -149,7 +132,7 @@ function displayForecast(response) {
                 />
               </li>
               <li class="weather-forecast">
-${Math.round(forecast.main.temp_min)}<small>°</small> | ${Math.round(
+${Math.round(forecast.main.temp_min)} <small>°</small> | ${Math.round(
       forecast.main.temp_max
     )}<small>°</small>
               </li>
@@ -165,13 +148,9 @@ function convertToFahrenheit() {
   let temperatureMin = document.querySelector("#min-temperature");
   let temperatureMax = document.querySelector("#max-temperature");
 
-  //let link = document.querySelector("#fahrenheit");
-  //link.classList.add("active");
-
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
 
-  //let celsiusLink = document.querySelector("#celsius");
   temperatureMin.innerHTML = Math.round((celsiusTemperatureMin * 9) / 5 + 32);
   temperatureMax.innerHTML = Math.round((celsiusTemperatureMax * 9) / 5 + 32);
   temperatureDay.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
@@ -187,10 +166,7 @@ function convertToCelsius() {
   let temperatureMin = document.querySelector("#min-temperature");
   let temperatureMax = document.querySelector("#max-temperature");
   let temperatureDay = document.querySelector("#curr-temperature");
-  //let link = document.querySelector("#celsius");
-  //link.classList.add("active");
-  //let fahrenheitLink = document.querySelector("#fahrenheit");
-  //fahrenheitLink.classList.remove("active");
+
   temperatureDay.innerHTML = Math.round(celsiusTemperature);
   temperatureMin.innerHTML = Math.round(celsiusTemperatureMin);
   temperatureMax.innerHTML = Math.round(celsiusTemperatureMax);
@@ -203,11 +179,10 @@ celsiusLink.addEventListener("click", convertToCelsius);
 function showPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  console.log(lat);
-  console.log(lon);
   let gps = document.querySelector("#gps");
   gps.innerHTML = `Latitude: ${Math.floor(lat * 1000 + 0.5) /
     1000} Longitude:${Math.floor(lon * 1000 + 0.5) / 1000} `;
+  console.log(position.coords);
 }
 
 function getCurrentPosition() {
