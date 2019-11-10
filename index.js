@@ -182,7 +182,6 @@ function showPosition(position) {
   let gps = document.querySelector("#gps");
   gps.innerHTML = `Latitude: ${Math.floor(lat * 1000 + 0.5) /
     1000} Longitude:${Math.floor(lon * 1000 + 0.5) / 1000} `;
-  console.log(position.coords);
 }
 
 function getCurrentPosition() {
